@@ -1,0 +1,68 @@
+<br>
+<br>
+<button mat-raised-button (click)="openDialog()">
+    <mat-icon>done</mat-icon>
+    Nuevo paciente
+</button>
+<br>
+<br>
+<form class="example-container" [formGroup]="form" #frmSignosV="ngForm" (ngSubmit)="operar()">
+
+    <div [hidden]="true">
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="ID" required formControlName="id">
+        </mat-form-field>
+    </div>
+
+    <mat-form-field>
+        <input matInput [matDatepicker]="picker" placeholder="Fecha" [max]="maxFecha" formControlName="fecha"
+            formControlName="fecha">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-select placeholder="Seleccione Paciente" formControlName="paciente">
+            <!-- <mat-option *ngFor="let p of (pacientes$ | async)" [value]="p">{{p.nombres}} {{p.apellidos}}
+            </mat-option> -->
+            <mat-option *ngFor="let p of listadoPacientes" [value]="p.idPaciente">{{p.nombres}} {{p.apellidos}}
+            </mat-option>
+
+        </mat-select>
+    </mat-form-field>
+
+    <!--<mat-form-field *ngIf="edicion">
+
+        <mat-select placeholder="Seleccione Paciente" formControlName="paciente">
+            <mat-option *ngFor="let p of (pacientes$ | async)" [value]="p">{{p.nombres}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>-->
+
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Temperatura" required formControlName="temperatura">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Pulso" required formControlName="pulso" type="text">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Ritmo Resp" required formControlName="ritmoR" type="text">
+    </mat-form-field>
+
+
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="frmSignosV.invalid">
+        <mat-icon>done</mat-icon>
+        <span>Aceptar</span>
+    </button>
+    <button mat-raised-button color="accent" routerLink='/pages/signos-vitales' type="button">
+        <mat-icon>close</mat-icon>
+        <span>Cancelar</span>
+    </button>
+</form>
+
+<p>{{form.value | json}}</p>
+
+<p>{{form.valid}}</p>
